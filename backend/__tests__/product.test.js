@@ -1,9 +1,7 @@
 // backend/__tests__/product.test.js
 
 const request = require('supertest');
-const { app, server } = require('../server'); // Import app and pool
-const pool = require('../config/db');
-const bcrypt = require('bcryptjs');
+const { app,pgPool, server } = require('../server'); // Import app and pgPool
 
 let user1Token = '';
 let user1Id = '';
@@ -15,7 +13,7 @@ let productId2 = ''; // For user2's product
 // Helper function to register and log in a user, returning their token and ID
 const registerAndLoginUser = async (email, password) => {
     // Clear users table for a fresh start for each user creation in tests
-    await pool.query('DELETE FROM users WHERE email = $1', [email]);
+    await pgPool.query('DELETE FROM users WHERE email = $1', [email]);
     
     const registerRes = await request(app)
         .post('/api/auth/register')
@@ -26,8 +24,8 @@ const registerAndLoginUser = async (email, password) => {
 
 beforeAll(async () => {
     process.env.NODE_ENV = 'test'; // Ensure test environment is active
-    await pool.query('DELETE FROM products'); // Clear products table
-    await pool.query('DELETE FROM users'); // Clear users table
+    await pgPool.query('DELETE FROM products'); // Clear products table
+    await pgPool.query('DELETE FROM users'); // Clear users table
     
     // Register and login two users for testing authorization
     const user1 = await registerAndLoginUser('user1@example.com', 'password123');
@@ -40,8 +38,8 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-    await pool.query('DELETE FROM products');
-    await pool.query('DELETE FROM users');
+    await pgPool.query('DELETE FROM products');
+    await pgPool.query('DELETE FROM users');
     // Note: pool.end() is called in auth.test.js after all tests.
     // We can choose to call it here too, or ensure it's called once globally.
     // For simplicity, we'll let auth.test.js handle the global pool.end().

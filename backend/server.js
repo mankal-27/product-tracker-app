@@ -1,7 +1,7 @@
 // Backend/server.js
 
-require('dotenv').config(); // Load environment variables from .env file
-const db = require('./config/db'); // Import the database connection
+const pgPool = require('./config/db'); // PostgreSQL connection
+const connectMongoDB = require('./config/mongoose'); // MongoDB connection function
 
 const express = require('express');
 const cors = require('cors');
@@ -17,6 +17,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // Enabling parsing of JSON request bodies
 
+// --- Database Connections ---
+// Connect to MongoDB
+connectMongoDB();
+
 //Basic Test Route
 app.get('/', (req, res) => {
     res.send('Product Tracker Backend is running!');
@@ -26,18 +30,11 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes); // All routes in authRoutes will be prefixed with /api/auth
 app.use('/api/products', productRoutes);// Use product routes, protected by authMiddleware internally
 
-//Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-    console.log(`Access at : http://localhost:${PORT}`);
+// Start the server and capture the server instance
+const server = app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Access at: http://localhost:${PORT}`);
 });
 
-//For Testing Purpose
-// // Start the server and capture the server instance
-// const server = app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-//     console.log(`Access at: http://localhost:${PORT}`);
-// });
-//
-// // Export both app, pool, and the server instance
-// module.exports = { app, server };
+// Export app, pgPool, and server for testing
+module.exports = { app, pgPool, server };

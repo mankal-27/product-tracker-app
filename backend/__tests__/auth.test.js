@@ -1,20 +1,19 @@
 // backend/__tests__/auth.test.js
 
 const request = require('supertest');
-const { app, server } = require('../server'); // Import app and pool
-const pool = require('../config/db');
+const { app,pgPool, server } = require('../server'); // Import app and pgPool
 const bcrypt = require('bcryptjs');
 
 // Before all tests, clear the users table in the test database
 beforeAll(async () => {
     process.env.NODE_ENV = 'test'; // Ensure test environment is active
-    await pool.query('DELETE FROM users'); // Clear users table
+    await pgPool.query('DELETE FROM users'); // Clear users table
 });
 
 // After all tests, clean up the users table and close the pool
 afterAll(async () => {
-    await pool.query('DELETE FROM users'); // Clear users table again
-    await pool.end(); // Close the pool connection
+    await pgPool.query('DELETE FROM users'); // Clear users table again
+    await pgPool.end(); // Close the pool connection
     server.close();   // <--- IMPORTANT: Close the Express server here
 });
 

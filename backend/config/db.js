@@ -44,7 +44,7 @@ pool.connect((err, client, done) => {
         console.error('Ensure DB_USERNAME, DB_HOST, DB_NAME, DB_PWD, DB_PORT are set correctly for NODE_ENV=' + process.env.NODE_ENV);
         return;
     }
-    console.log('Successfully connected to PostgreSQL database!');
+    console.log(`Successfully connected to PostgreSQL database (${process.env.DB_NAME})!`);
     client.release(); // Release the client back to the pool
 });
 
