@@ -8,6 +8,7 @@ const cors = require('cors');
 
 //Import Auth Router
 const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/product');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 
 //Use Auth Routes
 app.use('/api/auth', authRoutes); // All routes in authRoutes will be prefixed with /api/auth
+app.use('/api/products', productRoutes);// Use product routes, protected by authMiddleware internally
 
 //Start the server
 app.listen(PORT, () => {
