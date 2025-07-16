@@ -44,7 +44,7 @@ router.get('/', authMiddleware, async (req, res) => {
         );
         
         res.status(200).json({
-            message: 'Products Fetched successfully.',
+            message: 'Product Fetched successfully.',
             products: products.rows
         });
     }catch (err) {
@@ -69,7 +69,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
         }
         
         res.status(200).json({
-            message: 'Product fetched successfully.',
+            message: 'Product Fetched successfully.',
             product: product.rows[0]
         })
     }catch (err) {

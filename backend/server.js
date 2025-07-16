@@ -31,3 +31,13 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     console.log(`Access at : http://localhost:${PORT}`);
 });
+
+//For Testing Purpose
+// // Start the server and capture the server instance
+// const server = app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+//     console.log(`Access at: http://localhost:${PORT}`);
+// });
+//
+// // Export both app, pool, and the server instance
+// module.exports = { app, server };
