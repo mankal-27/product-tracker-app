@@ -9,10 +9,10 @@ const { Pool } = require('pg');
 // });
 
 const pool = new Pool({
-    user: 'postgres',
+    user: process.env.DB_USERNAME,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
-    password: 'chinky151719', // <-- HARDCODED FOR DEBUGGING
+    password: process.env.DB_PWD, // <-- HARDCODED FOR DEBUGGING
     port: process.env.DB_PORT,
 });
 
