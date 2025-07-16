@@ -1,0 +1,33 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for product tracker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mankal-27/product-tracker-app.git"
+  },
+  "keywords": [
+    "backend",
+    "product",
+    "tracker",
+    "warranty"
+  ],
+  "author": "Manjunath R K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mankal-27/product-tracker-app/issues"
+  },
+  "homepage": "https://github.com/mankal-27/product-tracker-app#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3"
+  }
+}
